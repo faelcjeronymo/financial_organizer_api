@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Create your models here
 
 class Bank(models.Model):
     def __str__(self):
@@ -37,5 +37,6 @@ class Transaction(models.Model):
     is_received = models.BooleanField(default=False)
     current_installment = models.IntegerField(null=True,blank=True)
     total_installments = models.IntegerField(null=True,blank=True)
+    is_salary = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
