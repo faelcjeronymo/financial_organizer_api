@@ -7,6 +7,11 @@ class BankSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TransactionSerializer(serializers.ModelSerializer):
+    # For read operations, use the BankSerializer to show nested bank details.
+    bank = BankSerializer(read_only=True)       
+    # For write operations, accept a bank ID.
+    bank_id = serializers.PrimaryKeyRelatedField(queryset=Bank.objects.all(), source='bank', write_only=True)
+
     class Meta:
         model = Transaction
-        fields = '__all__'
+        fields = [field.name for field in Transaction._meta.get_fields()] + ['bank_id']
